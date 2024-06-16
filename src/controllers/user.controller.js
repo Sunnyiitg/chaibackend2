@@ -20,7 +20,7 @@ const registerUser = asyncHandler(async(req,res) => {
         throw new ApiError(400, "Some Data Missing");
     }
     // check if user already exist
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or: [{userName}, {email}]
     })
     if(existedUser) {
@@ -28,7 +28,14 @@ const registerUser = asyncHandler(async(req,res) => {
     }
     // avatar and coverimage check
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // classic way to check
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage)
+    && req.files.coverImage.length > 0) {
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
+
     // these local path may or may not exist so check these
     if(!avatarLocalPath) {
         throw new ApiError(400,"Avatar File is Necessary");
