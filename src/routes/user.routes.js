@@ -31,7 +31,7 @@ router.route("/current-user").get(verifyJWT,getCurrentUser);
 router.route("/update-account").patch(verifyJWT,updateAccountDetails);
 // .patch, qki post me saari details update hojyengi
 router.route("/avatar-update").patch(verifyJWT,upload.single("avatar"),updateUserAvatar);
-router.route("/cover-image-update").patch(verifyJWT,upload.single("/coverImage"),updateUserCoverImage);
+router.route("/cover-image-update").patch(verifyJWT,upload.single("coverImage"),updateUserCoverImage);
 // from params
 router.route("/channel/:username").get(verifyJWT,getUserChannelProfile);
 router.route("/watch-history").get(verifyJWT,getWatchHistory);
