@@ -156,7 +156,8 @@ const logoutUser = asyncHandler(async(req,res) => {
     await User.findByIdAndUpdate(req.user._id,{
         // jisko update krna hai, set operator use krna pdta h
         $set : {
-            refreshToken : undefined
+            refreshToken : 1
+            // this removes the field from document
         }
         },
         {
